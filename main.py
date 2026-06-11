@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request 
+import uuid
 
 app = Flask(__name__)
 
@@ -8,9 +9,12 @@ def home():
 
 @app.route("/create", methods=["GET", "POST"])
 def create():
+    myid = uuid.uuid1()
     if request.method == "POST":
-        print(request.files)
-    return render_template("create.html")
+        print(request.files.keys())
+        for key, value in request.files.items():
+            print(key, value)
+    return render_template("create.html", myid=myid)
 
 @app.route("/gallery")
 def gallery():
